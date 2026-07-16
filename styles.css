@@ -43,7 +43,7 @@ body {
 .app {
   background: var(--bg);
   border-radius: 34px;
-  height: 844px;
+  /* height: 844px; */
   max-height: 90vh;
   display: flex;
   flex-direction: column;
