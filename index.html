@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Payment Portal</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="phone">
+    <div class="app">
+
+      <!-- Header -->
+      <header class="app-header">
+        <button class="icon-btn" id="backBtn" aria-label="Back">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <h1>School Payment Portal</h1>
+        <span class="header-spacer"></span>
+      </header>
+
+      <!-- Progress -->
+      <div class="progress-block">
+        <div class="progress-row">
+          <span class="progress-label" id="stepLabel">Step 1 of 4: Student's Details</span>
+          <span class="progress-pct" id="stepPct">25% Complete</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <!-- Scrollable content -->
+      <main class="app-content" id="appContent">
+
+        <!-- STEP 1: DETAILS -->
+        <section class="screen" id="screen-details" data-step="1">
+          <div class="card">
+            <h2>Enter Student Information</h2>
+            <p class="muted">Please provide accurate details to ensure the payment is correctly allocated to the student's account.</p>
+
+            <label class="field-label" for="studentName">Full Student Name</label>
+            <input class="field-input" type="text" id="studentName" placeholder="e.g. Jonathan Doe">
+
+            <label class="field-label" for="studentId">Student ID/Number</label>
+            <input class="field-input" type="text" id="studentId" placeholder="ID-000000">
+
+            <label class="field-label" for="gradeSelect">Grade/Class</label>
+            <select class="field-input" id="gradeSelect">
+              <option value="" disabled selected>Select Grade</option>
+              <option>Grade 9 - General</option>
+              <option>Grade 10 - General</option>
+              <option>Grade 11 - Science Stream</option>
+              <option>Grade 11 - Arts Stream</option>
+              <option>Grade 12 - Science Stream</option>
+            </select>
+
+            <span class="field-label">Payment Purpose</span>
+            <div class="radio-list" id="purposeList">
+              <label class="radio-option">
+                <input type="radio" name="purpose" value="Tuition Fees" checked>
+                <span class="radio-dot"></span>
+                <span>Tuition Fees</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="purpose" value="Field Trip">
+                <span class="radio-dot"></span>
+                <span>Field Trip</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="purpose" value="Extracurricular">
+                <span class="radio-dot"></span>
+                <span>Extracurricular</span>
+              </label>
+            </div>
+
+            <div class="secure-row">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z" stroke="#2f6fed" stroke-width="1.6"/></svg>
+              <span>Secure Encrypted Transaction</span>
+            </div>
+
+            <button class="btn-primary" id="toVerifyBtn">Next <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+
+          <div class="trust-card">
+            <h3>Academic Trust</h3>
+            <p>Our payment gateway is built on institutional reliability. We ensure your educational expenses are handled with the highest priority and security protocols.</p>
+            <div class="compliance-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#cfd8f5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="#cfd8f5" stroke-width="1.4"/></svg>
+              PCI-DSS Compliant
+            </div>
+          </div>
+
+          <div class="photo-card" id="photoCard1">
+            <div class="photo-overlay">
+              <h3>Invest in the Future</h3>
+              <p>Every payment secures a student's pathway to excellence.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 2: VERIFY -->
+        <section class="screen hidden" id="screen-verify" data-step="2">
+          <div class="card">
+            <div class="summary-head">
+              <h2>Student Information Summary</h2>
+              <button class="edit-link" id="editDetailsBtn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 20h9" stroke="#2f6fed" stroke-width="1.8" stroke-linecap="round"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke="#2f6fed" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                Edit Details
+              </button>
+            </div>
+
+            <div class="summary-row">
+              <span class="summary-label">FULL NAME</span>
+              <span class="summary-value" id="sumName">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">STUDENT ID</span>
+              <span class="summary-value" id="sumId">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">GRADE LEVEL</span>
+              <span class="summary-value" id="sumGrade">—</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">PURPOSE OF PAYMENT</span>
+              <span class="summary-value" id="sumPurpose">—</span>
+            </div>
+
+            <div class="info-note">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#2f6fed" stroke-width="1.6"/><path d="M12 8v.01M12 11v5" stroke="#2f6fed" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <span>Please ensure the details above match the student's official records to prevent transaction delays.</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="breakdown-title">Payment Breakdown</h3>
+            <div class="breakdown-row">
+              <span>Tuition Base</span>
+              <span id="brTuition">$4,500.00</span>
+            </div>
+            <div class="breakdown-row">
+              <span>Facility Fee</span>
+              <span id="brFacility">$250.00</span>
+            </div>
+            <div class="breakdown-total">
+              <span>Total Due</span>
+              <span id="brTotal">$4,750.00</span>
+            </div>
+
+            <button class="btn-primary" id="toBankBtn">Confirm &amp; Continue <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="secure-row center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z" stroke="#6b7280" stroke-width="1.6"/></svg>
+              <span>Secure Encrypted Transaction</span>
+            </div>
+          </div>
+
+          <div class="photo-card dark" id="photoCard2">
+            <div class="photo-overlay">
+              <span class="eyebrow">INSTITUTIONAL TRUST</span>
+              <h3>St. Xavier Academy</h3>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 3: BANK -->
+        <section class="screen hidden" id="screen-bank" data-step="3">
+          <div class="card">
+            <div class="beneficiary-head">
+              <div class="bank-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-6 9 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v9M19 10v9M9 10v9M15 10v9" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M3 19h18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <h3>Beneficiary Bank Details</h3>
+                <p class="muted small">Transfer the total amount to the account below</p>
+              </div>
+            </div>
+
+            <div class="bank-box">
+              <div class="bank-line">
+                <span class="bank-key">Bank Name</span>
+                <span class="bank-val">Standard Chartered Institutional</span>
+              </div>
+              <div class="bank-line">
+                <span class="bank-key">Account Number</span>
+                <span class="bank-val with-copy">
+                  0012 9948 2231
+                  <button class="copy-btn" id="copyAccountBtn" aria-label="Copy account number">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="1.5" stroke="#2f6fed" stroke-width="1.6"/><path d="M5 15V5a1 1 0 011-1h10" stroke="#2f6fed" stroke-width="1.6" stroke-linecap="round"/></svg>
+                  </button>
+                </span>
+              </div>
+              <div class="bank-line">
+                <span class="bank-key">Account Name</span>
+                <span class="bank-val">Apex International Academy Tuition</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 class="breakdown-title">Sender Details</h3>
+            <label class="field-label" for="payerName">Payer Full Name</label>
+            <input class="field-input" type="text" id="payerName" placeholder="Enter name as it appears on bank statement">
+
+            <label class="field-label" for="payerPhone">Phone Number</label>
+            <input class="field-input" type="tel" id="payerPhone" placeholder="+1 (555) 000-0000">
+
+            <label class="field-label" for="payerEmail">Email Address</label>
+            <input class="field-input" type="email" id="payerEmail" placeholder="example@mail.com">
+          </div>
+
+          <div class="card">
+            <h3 class="breakdown-title">Payment Summary</h3>
+            <div class="breakdown-row"><span>Tuition (Semester 2)</span><span>$4,500.00</span></div>
+            <div class="breakdown-row"><span>Laboratory Fees</span><span>$250.00</span></div>
+            <div class="breakdown-row"><span>Transaction Fee</span><span>$15.00</span></div>
+            <div class="breakdown-total blue">
+              <span>Total Amount</span>
+              <span id="finalTotal">$4,765.00</span>
+            </div>
+
+            <button class="btn-primary" id="toStatusBtn">Proceed to Pay <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="secure-row center">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z" stroke="#6b7280" stroke-width="1.6"/></svg>
+              <span>Secure Encrypted Transaction</span>
+            </div>
+          </div>
+
+          <div class="photo-card" id="photoCard3">
+            <div class="photo-overlay">
+              <p class="help-text">Need help? Contact School Bursar Office</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- STEP 4: STATUS -->
+        <section class="screen hidden" id="screen-status" data-step="4">
+          <div class="card status-card">
+            <div class="status-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#e8f6ee"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#1f9d55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h2 class="status-title">Payment Submitted</h2>
+            <p class="muted center">Your transfer reference has been recorded. The bursar's office will confirm receipt within 1–2 business days.</p>
+
+            <div class="status-summary">
+              <div class="summary-row"><span class="summary-label">STUDENT</span><span class="summary-value" id="statusName">—</span></div>
+              <div class="summary-row"><span class="summary-label">REFERENCE</span><span class="summary-value" id="statusRef">—</span></div>
+              <div class="summary-row"><span class="summary-label">AMOUNT</span><span class="summary-value" id="statusAmount">$4,765.00</span></div>
+            </div>
+
+            <button class="btn-secondary" id="startOverBtn">Start a New Payment</button>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Bottom nav -->
+      <nav class="bottom-nav">
+        <button class="nav-item" data-target="1" id="nav-details">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 100-8 4 4 0 000 8z" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-3.5 3.5-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span>Details</span>
+        </button>
+        <button class="nav-item" data-target="2" id="nav-verify">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 9h8M8 13h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M8.5 17l1.5 1.5L13 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Verify</span>
+        </button>
+        <button class="nav-item" data-target="3" id="nav-bank">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-6 9 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v9M19 10v9M9 10v9M15 10v9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 19h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span>Bank</span>
+        </button>
+        <button class="nav-item" data-target="4" id="nav-status">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 12.5l2.2 2.2L15.5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Status</span>
+        </button>
+      </nav>
+
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>
