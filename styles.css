@@ -44,7 +44,7 @@ body {
   background: var(--bg);
   border-radius: 34px;
   /* height: 844px; */
-  max-height: 90vh;
+  /* max-height: 90vh; */
   display: flex;
   flex-direction: column;
   overflow: hidden;
