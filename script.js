@@ -160,7 +160,6 @@
     advanceTo(1);
   });
 
-  
   document.getElementById("backBtn").addEventListener("click", () => {
     if (currentStep > 1) goToStep(currentStep - 1);
   });
