@@ -28,7 +28,7 @@ body {
   align-items: flex-start;
   min-height: 100vh;
   padding: 2px 2px;
-  
+
 }
 
 
@@ -241,6 +241,7 @@ select.field-input {
   border: 1.5px solid transparent;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
+
 
 .radio-option input {
   position: absolute;
