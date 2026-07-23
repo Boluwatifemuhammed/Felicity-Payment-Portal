@@ -205,7 +205,7 @@ body {
 }
 
 .options{
-  cursor:pointer
+  cursor: pointer;
 }
 
 .field-input::placeholder {
