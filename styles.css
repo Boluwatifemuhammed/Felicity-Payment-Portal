@@ -201,7 +201,6 @@ body {
   color: var(--ink);
   font-family: inherit;
   appearance: none;
-  cursor: pointer;
   -webkit-appearance: none;
 }
 
