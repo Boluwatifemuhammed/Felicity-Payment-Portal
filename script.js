@@ -132,7 +132,7 @@ const FEES = {
 
   function syncFinalTotal() {
     const purpose = getSelectedPurpose();
-    const tuition = FEES.tuitionBase;
+    const tuition = PURPOSE_PRICES[purpose] || 0;
     const facility = purpose === "Tuition Fees" ? FEES.facilityFee : 0;
     const total = tuition + facility + FEES.transactionFee;
     document.getElementById("finalTotal").textContent = formatMoney(total);
