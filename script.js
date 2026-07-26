@@ -32,11 +32,16 @@
   let currentStep = 1;
 
   // Fixed fee lines (in a real app these would come from a school's fee schedule).
-  const FEES = {
-    tuitionBase: 4500,
-    facilityFee: 250,
-    transactionFee: 15,
-  };
+ const PURPOSE_PRICES = {
+  "Tuition Fees": 4500,
+  "Field Trip": 1200,
+  "Extracurricular": 800,
+};
+
+const FEES = {
+  facilityFee: 250,
+  transactionFee: 15,
+};
 
   // --- Paystack config ---
   // Replace with YOUR real public key from the Paystack dashboard (Settings > API Keys & Webhooks).
@@ -116,7 +121,7 @@
     document.getElementById("sumPurpose").textContent = purpose;
 
     // Field trips / extracurriculars don't carry the facility fee in this example.
-    const tuition = FEES.tuitionBase;
+    const tuition = PURPOSE_PRICES[purpose] || 0;
     const facility = purpose === "Tuition Fees" ? FEES.facilityFee : 0;
     const total = tuition + facility;
 
