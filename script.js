@@ -34,7 +34,7 @@
   // Fixed fee lines (in a real app these would come from a school's fee schedule).
  const PURPOSE_PRICES = {
   "Tuition Fees": 4500,
-  "Result Slip Payment": 1200,
+  "Result Slip Payment": 120,
   "Textbook Purchase": 800,
 };
 
@@ -46,7 +46,7 @@ const FEES = {
   // --- Paystack config ---
   // Replace with YOUR real public key from the Paystack dashboard (Settings > API Keys & Webhooks).
   // Public keys are safe in frontend code. NEVER put a secret key (sk_...) in this file.
-  const PAYSTACK_PUBLIC_KEY = "pk_test_replace_with_your_public_key";
+  const PAYSTACK_PUBLIC_KEY = "pk_test_dcfd13d3b7fe96d9a872c4141d543fd30f2e9a0d";
   // Your account currency — Naira here since the UI is priced in ₦.
   const PAYSTACK_CURRENCY = "NGN";
 
