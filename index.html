@@ -14,7 +14,7 @@
         }
     
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'poppins';
             background-color: #f4f4f4;
             color: #333;
         }
@@ -24,13 +24,37 @@
             flex-direction: column;
             min-height: 100vh;
             background-image:
-    linear-gradient(to bottom, rgba(10,20,40,0.55), rgba(10,20,40,0.75)),
-    url('school background.png'); 
-  background-size: cover;       
-  background-position: center;  
-  background-repeat: no-repeat;
-  color: white;
+            linear-gradient(to bottom, rgba(10,20,40,0.55), rgba(10,20,40,0.75)),
+            url('school background.png'); 
+            background-size: cover;       
+            background-position: center;  
+            background-repeat: no-repeat;
+            color: white;
             
+        }
+
+        .hero-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        max-width: 480px;
+        margin: 0 auto;
+
+        /* fade-in animation */
+        opacity: 0;
+        transform: translateY(12px);
+        animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
         }
     
         .hero-topbar {
