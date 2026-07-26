@@ -53,9 +53,7 @@
               <option>Grade 10 </option>
               <option>Grade 11 </option>
               <option>Grade 12 </option>
-              
             </select>
-
 
             <span class="field-label">Payment Purpose</span>
             <div class="radio-list" id="purposeList">
@@ -167,7 +165,24 @@
 
         <!-- STEP 3: BANK -->
         <section class="screen hidden" id="screen-bank" data-step="3">
+
           <div class="card">
+            <h3 class="breakdown-title">Payment Method</h3>
+            <div class="radio-list" id="methodList">
+              <label class="radio-option">
+                <input type="radio" name="method" value="bank" checked>
+                <span class="radio-dot"></span>
+                <span>Bank Transfer <span class="method-sub">— manual, confirmed in 1–2 days</span></span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="method" value="paystack">
+                <span class="radio-dot"></span>
+                <span>Pay with Paystack <span class="method-sub">— card, bank or USSD, verified instantly</span></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="card" id="bankDetailsCard">
             <div class="beneficiary-head">
               <div class="bank-icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 10l9-6 9 6" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10v9M19 10v9M9 10v9M15 10v9" stroke="white" stroke-width="1.8" stroke-linecap="round"/><path d="M3 19h18" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -186,7 +201,7 @@
               <div class="bank-line">
                 <span class="bank-key">Account Number</span>
                 <span class="bank-val with-copy">
-                  209 628 1242 
+                  209 628 1242
                   <button class="copy-btn" id="copyAccountBtn" aria-label="Copy account number">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="11" height="11" rx="1.5" stroke="#2f6fed" stroke-width="1.6"/><path d="M5 15V5a1 1 0 011-1h10" stroke="#2f6fed" stroke-width="1.6" stroke-linecap="round"/></svg>
                   </button>
@@ -221,7 +236,11 @@
               <span id="finalTotal">₦4,765.00</span>
             </div>
 
-            <button class="btn-primary" id="toStatusBtn">Proceed to Pay <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button class="btn-primary" id="toStatusBtn">
+              <span id="payBtnLabel">Proceed to Pay</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="pay-error hidden" id="payError">Something went wrong loading the payment popup. Check your connection and try again.</p>
             <div class="secure-row center">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l7 4v6c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-4z" stroke="#6b7280" stroke-width="1.6"/></svg>
               <span>Secure Encrypted Transaction</span>
@@ -241,8 +260,8 @@
             <div class="status-icon">
               <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#e8f6ee"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke="#1f9d55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
-            <h2 class="status-title">Payment Submitted</h2>
-            <p class="muted center">Your transfer reference has been recorded. The bursar's office will confirm receipt within 1–2 business days.</p>
+            <h2 class="status-title" id="statusTitle">Payment Submitted</h2>
+            <p class="muted center" id="statusMessage">Your transfer reference has been recorded. The bursar's office will confirm receipt within 1–2 business days.</p>
 
             <div class="status-summary">
               <div class="summary-row"><span class="summary-label">STUDENT</span><span class="summary-value" id="statusName">—</span></div>
@@ -253,7 +272,7 @@
             <button class="btn-secondary" id="startOverBtn">Start a New Payment</button>
           </div>
         </section>
- 
+
       </main>
 
       <!-- Bottom nav -->
@@ -279,6 +298,7 @@
     </div>
   </div>
 
+<script src="https://js.paystack.co/v2/inline.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
