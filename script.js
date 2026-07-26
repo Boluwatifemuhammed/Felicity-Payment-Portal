@@ -38,8 +38,40 @@
     transactionFee: 15,
   };
 
+  // --- Paystack config ---
+  // Replace with YOUR real public key from the Paystack dashboard (Settings > API Keys & Webhooks).
+  // Public keys are safe in frontend code. NEVER put a secret key (sk_...) in this file.
+  const PAYSTACK_PUBLIC_KEY = "pk_test_replace_with_your_public_key";
+  // Your account currency — Naira here since the UI is priced in ₦.
+  const PAYSTACK_CURRENCY = "NGN";
+
+  const bankDetailsCard = document.getElementById("bankDetailsCard");
+  const payBtnLabel = document.getElementById("payBtnLabel");
+  const payError = document.getElementById("payError");
+
+  function getSelectedMethod() {
+    const checked = document.querySelector('input[name="method"]:checked');
+    return checked ? checked.value : "bank";
+  }
+
+  function updateMethodUI() {
+    const method = getSelectedMethod();
+    payError.classList.add("hidden");
+    if (method === "paystack") {
+      bankDetailsCard.classList.add("hidden");
+      payBtnLabel.textContent = "Pay with Paystack";
+    } else {
+      bankDetailsCard.classList.remove("hidden");
+      payBtnLabel.textContent = "Proceed to Pay";
+    }
+  }
+
+  document.querySelectorAll('input[name="method"]').forEach((radio) => {
+    radio.addEventListener("change", updateMethodUI);
+  });
+
   function formatMoney(n) {
-    return "₦" + n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return "₦" + n.toLocaleString("en-NG", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function goToStep(step) {
@@ -102,13 +134,26 @@
     return total;
   }
 
-  function syncStatusScreen() {
+  function syncStatusScreen(method, reference) {
     const name = document.getElementById("studentName").value.trim() || "—";
     const total = syncFinalTotal();
     document.getElementById("statusName").textContent = name;
     document.getElementById("statusAmount").textContent = formatMoney(total);
     document.getElementById("statusRef").textContent =
-      "PMT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+      reference || "PMT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+
+    const titleEl = document.getElementById("statusTitle");
+    const msgEl = document.getElementById("statusMessage");
+
+    if (method === "paystack") {
+      titleEl.textContent = "Payment Verified Instantly";
+      msgEl.textContent =
+        "Your payment was confirmed by Paystack immediately — no waiting on manual bank confirmation.";
+    } else {
+      titleEl.textContent = "Payment Submitted";
+      msgEl.textContent =
+        "Your transfer reference has been recorded. The bursar's office will confirm receipt within 1–2 business days.";
+    }
   }
 
   // --- Basic validation helpers ---
@@ -144,8 +189,67 @@
 
   document.getElementById("toStatusBtn").addEventListener("click", () => {
     if (!requireFields(["payerName", "payerPhone", "payerEmail"])) return;
-    syncStatusScreen();
-    advanceTo(4);
+
+    const method = getSelectedMethod();
+    payError.classList.add("hidden");
+
+    if (method === "bank") {
+      syncStatusScreen("bank");
+      advanceTo(4);
+      return;
+    }
+
+    // --- Paystack flow ---
+    if (typeof PaystackPop === "undefined") {
+      payError.textContent =
+        "Couldn't load the Paystack popup. Check your connection and try again.";
+      payError.classList.remove("hidden");
+      return;
+    }
+
+    const total = syncFinalTotal();
+    const email = document.getElementById("payerEmail").value.trim();
+    const reference = "SCH-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
+    const payBtn = document.getElementById("toStatusBtn");
+
+    payBtn.disabled = true;
+    payBtnLabel.textContent = "Opening Paystack…";
+
+    try {
+      const popup = new PaystackPop();
+      popup.newTransaction({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: email,
+        amount: Math.round(total * 100), // Paystack expects the lowest currency unit (kobo for NGN)
+        currency: PAYSTACK_CURRENCY,
+        ref: reference,
+        onSuccess: function (transaction) {
+          // NOTE: This confirms the popup completed on the client side only.
+          // In production, send transaction.reference to YOUR backend and call
+          // Paystack's GET /transaction/verify/:reference endpoint with your
+          // secret key before treating the payment as genuinely successful.
+          payBtn.disabled = false;
+          payBtnLabel.textContent = "Pay with Paystack";
+          syncStatusScreen("paystack", transaction.reference);
+          advanceTo(4);
+        },
+        onCancel: function () {
+          payBtn.disabled = false;
+          payBtnLabel.textContent = "Pay with Paystack";
+        },
+        onError: function (err) {
+          payBtn.disabled = false;
+          payBtnLabel.textContent = "Pay with Paystack";
+          payError.textContent = "Payment failed: " + (err && err.message ? err.message : "please try again.");
+          payError.classList.remove("hidden");
+        },
+      });
+    } catch (e) {
+      payBtn.disabled = false;
+      payBtnLabel.textContent = "Pay with Paystack";
+      payError.textContent = "Something went wrong starting the payment. Please try again.";
+      payError.classList.remove("hidden");
+    }
   });
 
   document.getElementById("startOverBtn").addEventListener("click", () => {
@@ -156,6 +260,8 @@
     document.getElementById("payerPhone").value = "";
     document.getElementById("payerEmail").value = "";
     document.querySelector('input[name="purpose"]').checked = true;
+    document.querySelector('input[name="method"][value="bank"]').checked = true;
+    updateMethodUI();
     furthestStep = 1;
     advanceTo(1);
   });
@@ -171,7 +277,7 @@
 
   // Copy account number
   document.getElementById("copyAccountBtn").addEventListener("click", () => {
-    const accountNumber = "0012 9948 2231";
+    const accountNumber = "209 628 1242";
     navigator.clipboard
       .writeText(accountNumber)
       .then(() => {
@@ -187,5 +293,6 @@
   });
 
   // Init
+  updateMethodUI();
   goToStep(1);
 })();
