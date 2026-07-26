@@ -34,8 +34,8 @@
   // Fixed fee lines (in a real app these would come from a school's fee schedule).
  const PURPOSE_PRICES = {
   "Tuition Fees": 4500,
-  "Field Trip": 1200,
-  "Extracurricular": 800,
+  "Result Slip Payment": 1200,
+  "Textbook Purchase": 800,
 };
 
 const FEES = {
