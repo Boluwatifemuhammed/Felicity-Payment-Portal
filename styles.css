@@ -280,6 +280,27 @@ select.field-input {
   background: #eef3ff;
 }
 
+.method-sub {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.pay-error {
+  color: #d0342c;
+  font-size: 12.5px;
+  text-align: center;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.btn-primary[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Secure row */
 .secure-row {
   display: flex;
