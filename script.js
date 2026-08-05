@@ -39,7 +39,6 @@
   };
 
   const FEES = {
-    facilityFee: 250,
     transactionFee: 15,
   };
 
@@ -127,15 +126,12 @@
     document.getElementById("sumGrade").textContent = grade || "—";
     document.getElementById("sumPurpose").textContent = purpose;
 
-    // Field trips / extracurriculars don't carry the facility fee in this example.
-    const tuition = PURPOSE_PRICES[purpose] || 0;
-    const facility = purpose === "Tuition Fees" ? FEES.facilityFee : 0;
-    const total = tuition + facility;
+    const price = PURPOSE_PRICES[purpose] || 0;
 
-    document.getElementById("brTuition").textContent = formatMoney(tuition);
-    document.getElementById("brFacility").textContent = formatMoney(facility);
-    document.getElementById("brTotal").textContent = formatMoney(total);
-  }
+    document.getElementById("brPurposeLabel").textContent = purpose;
+    document.getElementById("brPurposeAmount").textContent = formatMoney(price);
+    document.getElementById("brTotal").textContent = formatMoney(price);
+}
 
   function syncFinalTotal() {
   const purpose = getSelectedPurpose();
