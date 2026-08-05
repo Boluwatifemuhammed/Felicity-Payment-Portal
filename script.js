@@ -32,16 +32,16 @@
   let currentStep = 1;
 
   // Fixed fee lines (in a real app these would come from a school's fee schedule).
- const PURPOSE_PRICES = {
-  "Tuition Fees": 4500,
-  "Result Slip Payment": 120,
-  "Textbook Purchase": 800,
-};
+  const PURPOSE_PRICES = {
+    "Tuition Fees": 4500,
+    "Result Slip Payment": 120,
+    "Textbook Purchase": 800,
+  };
 
-const FEES = {
-  facilityFee: 250,
-  transactionFee: 15,
-};
+  const FEES = {
+    facilityFee: 250,
+    transactionFee: 15,
+  };
 
   // --- Paystack config ---
   // Replace with YOUR real public key from the Paystack dashboard (Settings > API Keys & Webhooks).
@@ -49,6 +49,13 @@ const FEES = {
   const PAYSTACK_PUBLIC_KEY = "pk_test_dcfd13d3b7fe96d9a872c4141d543fd30f2e9a0d";
   // Your account currency — Naira here since the UI is priced in ₦.
   const PAYSTACK_CURRENCY = "NGN";
+
+  // --- EmailJS config ---
+  const EMAILJS_PUBLIC_KEY = "RWP2IlmooAKe6XxO8";
+  const EMAILJS_SERVICE_ID = "service_8psh8vz";
+  const EMAILJS_TEMPLATE_ID = "template_12zrxyn";
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
 
   const bankDetailsCard = document.getElementById("bankDetailsCard");
   const payBtnLabel = document.getElementById("payBtnLabel");
@@ -161,6 +168,30 @@ const FEES = {
     }
   }
 
+  // --- EmailJS: notify the school office whenever a payment is submitted ---
+  function sendPaymentEmail(method, reference, total) {
+    const templateParams = {
+      student_name: document.getElementById("studentName").value.trim(),
+      student_id: document.getElementById("studentId").value.trim(),
+      grade: document.getElementById("gradeSelect").value,
+      purpose: getSelectedPurpose(),
+      payer_name: document.getElementById("payerName").value.trim(),
+      payer_phone: document.getElementById("payerPhone").value.trim(),
+      payer_email: document.getElementById("payerEmail").value.trim(),
+      amount: formatMoney(total) + " (" + method + ", ref: " + reference + ")",
+    };
+
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+      .then(() => {
+        console.log("Payment notification email sent successfully");
+      })
+      .catch((error) => {
+        // We don't block the user's flow if the email fails — the payment itself
+        // already succeeded. We just log it so it can be investigated later.
+        console.error("Email failed to send:", error);
+      });
+  }
+
   // --- Basic validation helpers ---
   function requireFields(ids) {
     let ok = true;
@@ -199,7 +230,10 @@ const FEES = {
     payError.classList.add("hidden");
 
     if (method === "bank") {
-      syncStatusScreen("bank");
+      const total = syncFinalTotal();
+      const reference = "PMT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+      sendPaymentEmail("bank", reference, total);
+      syncStatusScreen("bank", reference);
       advanceTo(4);
       return;
     }
@@ -235,6 +269,7 @@ const FEES = {
           // secret key before treating the payment as genuinely successful.
           payBtn.disabled = false;
           payBtnLabel.textContent = "Pay with Paystack";
+          sendPaymentEmail("paystack", transaction.reference, total);
           syncStatusScreen("paystack", transaction.reference);
           advanceTo(4);
         },
