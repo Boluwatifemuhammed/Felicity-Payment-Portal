@@ -27,7 +27,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
- 
+  padding: 2px 2px;
 
 }
 
@@ -37,15 +37,12 @@ body {
   max-width: 100%;
   /* background: #16181d; */
   /* border-radius: 44px; */
-  padding: 10px;
+  
   
 }
 
 .app {
   background: var(--bg);
-  border-radius: 34px;
-  /* height: 844px; */
-  /* max-height: 90vh; */
   display: flex;
   flex-direction: column;
   overflow: hidden;
