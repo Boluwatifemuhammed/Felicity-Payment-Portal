@@ -138,13 +138,15 @@
   }
 
   function syncFinalTotal() {
-    const purpose = getSelectedPurpose();
-    const tuition = PURPOSE_PRICES[purpose] || 0;
-    const facility = purpose === "Tuition Fees" ? FEES.facilityFee : 0;
-    const total = tuition + facility + FEES.transactionFee;
-    document.getElementById("finalTotal").textContent = formatMoney(total);
-    return total;
-  }
+  const purpose = getSelectedPurpose();
+  const price = PURPOSE_PRICES[purpose] || 0;
+
+  document.getElementById("finalPurposeLabel").textContent = purpose;
+  document.getElementById("finalPurposeAmount").textContent = formatMoney(price);
+  document.getElementById("finalTotal").textContent = formatMoney(price);
+
+  return price;
+}
 
   function syncStatusScreen(method, reference) {
     const name = document.getElementById("studentName").value.trim() || "—";
