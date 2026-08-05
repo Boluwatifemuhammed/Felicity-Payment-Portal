@@ -395,6 +395,7 @@ select.field-input {
   background-size: cover;
   background-position: center;
   position: relative;
+  margin-bottom: 40px;
   overflow: hidden;
   background-color: #223047;
   background-image:
@@ -657,6 +658,12 @@ select.field-input {
   border-top: 1px solid var(--border);
   padding: 10px 6px 14px;
   flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
 }
 
 .nav-item {

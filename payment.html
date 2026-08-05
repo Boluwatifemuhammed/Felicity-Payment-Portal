@@ -173,12 +173,12 @@
               <label class="radio-option">
                 <input type="radio" name="method" value="bank" checked>
                 <span class="radio-dot"></span>
-                <span>Bank Transfer <span class="method-sub">— manual, confirmed in 1–2 days</span></span>
+                <span>Bank Transfer <span class="method-sub">manual, confirmed in 1–2 days</span></span>
               </label>
               <label class="radio-option">
                 <input type="radio" name="method" value="paystack">
                 <span class="radio-dot"></span>
-                <span>Pay with Paystack <span class="method-sub">— card, bank or USSD, verified instantly</span></span>
+                <span>Pay with Paystack <span class="method-sub">card, bank or USSD, verified instantly</span></span>
               </label>
             </div>
           </div>
@@ -229,13 +229,12 @@
 
           <div class="card">
             <h3 class="breakdown-title">Payment Summary</h3>
-            <div class="breakdown-row"><span>Tuition (Semester 2)</span><span>₦4,500.00</span></div>
-            <div class="breakdown-row"><span>Laboratory Fees</span><span>₦250.00</span></div>
-            <div class="breakdown-row"><span>Transaction Fee</span><span>₦15.00</span></div>
+            <div class="breakdown-row"><span id="finalPurposeLabel">Selected Payment</span><span id="finalPurposeAmount">₦0.00</span></div>
             <div class="breakdown-total blue">
               <span>Total Amount</span>
-              <span id="finalTotal">₦4,765.00</span>
-            </div>
+              <span id="finalTotal">₦0.00</span>
+          </div>
+  
 
             <button class="btn-primary" id="toStatusBtn">
               <span id="payBtnLabel">Proceed to Pay</span>
