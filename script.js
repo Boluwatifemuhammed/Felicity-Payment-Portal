@@ -45,7 +45,7 @@
   // --- Paystack config ---
   // Replace with YOUR real public key from the Paystack dashboard (Settings > API Keys & Webhooks).
   // Public keys are safe in frontend code. NEVER put a secret key (sk_...) in this file.
-  const PAYSTACK_PUBLIC_KEY = "pk_test_dcfd13d3b7fe96d9a872c4141d543fd30f2e9a0d";
+  const PAYSTACK_PUBLIC_KEY = "pk_live_ab3c98ce0b619a0610d47ebb4d321aa709ad5ace";
   // Your account currency — Naira here since the UI is priced in ₦.
   const PAYSTACK_CURRENCY = "NGN";
 
