@@ -18,6 +18,36 @@
     font-family: 'Poppins', sans-serif;
   }
 
+  .dropdown-cont{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .menu-dropdown{
+    background-color: #f3f4f6;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .menu-dropdown p{
+    font-size: 12px;
+    color: #374151;
+    margin-bottom: 6px;
+  } 
+
+  .menu-dropdown button{
+    background-color: #2f6fed;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+  }
+
   .landing {
     min-height: 100vh;
     display: flex;
@@ -244,6 +274,17 @@
       <h1>Academic Reserve</h1>
       <button class="icon-btn"><i data-lucide="help-circle"></i></button>
     </header>
+
+    <div class="dropdown-cont">
+      <div class="menu-dropdown">
+        <p>Looking for something else</p>
+        <button class="dropdown-btn">Go to school website</button>
+      </div>
+      <div class="contact-dropdown">
+        <p>Need Assistance?</p>
+        <button class="dropdown-btn">Contact Support</button>
+      </div>
+    </div>
 
     <!-- Center content -->
     <div class="landing-content">
