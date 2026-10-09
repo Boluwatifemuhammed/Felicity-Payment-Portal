@@ -291,17 +291,8 @@
   });
 
   document.getElementById("startOverBtn").addEventListener("click", () => {
-    document.getElementById("studentName").value = "";
-    document.getElementById("studentId").value = "";
-    document.getElementById("gradeSelect").selectedIndex = 0;
-    document.getElementById("payerName").value = "";
-    document.getElementById("payerPhone").value = "";
-    document.getElementById("payerEmail").value = "";
-    document.querySelector('input[name="purpose"]').checked = true;
-    document.querySelector('input[name="method"][value="bank"]').checked = true;
-    updateMethodUI();
-    furthestStep = 1;
-    advanceTo(1);
+    
+    window.location.href = "https://script.google.com/macros/s/AKfycbwXdkAk7GqMxosJqBLc1IwhefgXqrNElVymT_88bSQLFLAD5OLqRlnVMJh48t7BcIWg/exec";
   });
 
   document.getElementById("backBtn").addEventListener("click", () => {
