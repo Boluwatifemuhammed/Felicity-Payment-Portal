@@ -292,7 +292,7 @@
 
   document.getElementById("startOverBtn").addEventListener("click", () => {
     
-    window.location.href = "https://script.google.com/macros/s/AKfycbwXdkAk7GqMxosJqBLc1IwhefgXqrNElVymT_88bSQLFLAD5OLqRlnVMJh48t7BcIWg/exec";
+    window.location.href = "https://script.google.com/macros/s/AKfycbztSWd1tZaR24lwChKjjCqyshUW6qIO2JiYbwt5I5DG9hxJ_WvCCcaZlanLZ1LPHcY4/exec";
   });
 
   document.getElementById("backBtn").addEventListener("click", () => {
